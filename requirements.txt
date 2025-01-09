@@ -1,2 +1,5 @@
 fastapi[all]
 google-generativeai
+python-docx
+pdfplumber
+python-pptx
