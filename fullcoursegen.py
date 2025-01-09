@@ -3,13 +3,13 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from enum import Enum
 import google.generativeai as genai
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 import json
 import uvicorn
 import re
 from fastapi.middleware.cors import CORSMiddleware  # Import CORSMiddleware
 import requests
-# load_dotenv()
+load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_GEMINI_KEY"))
 
 class DifficultyLevel(str, Enum):
