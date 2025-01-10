@@ -11,6 +11,7 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 import uvicorn
 import json
+from fastapi.middleware.cors import CORSMiddleware  # Import CORSMiddleware
 # Load environment variables
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_GEMINI_KEY"))
@@ -29,7 +30,13 @@ model = genai.GenerativeModel(
 )
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins, change to specific origins as needed
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 class FileRequest(BaseModel):
     file_url: str
 
