@@ -5,6 +5,7 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 import uvicorn
 import json
+from fastapi.middleware.cors import CORSMiddleware  # Import CORSMiddleware
 # Load environment variables from .env file
 load_dotenv()
 
@@ -27,7 +28,13 @@ model = genai.GenerativeModel(
 
 # FastAPI app initialization
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins, change to specific origins as needed
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 # Pydantic model for request payload
 class CourseRecommendationRequest(BaseModel):
     student_level: str
