@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware  # Import CORSMiddleware
 import requests
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_GEMINI_KEY"))
-
+from fastapi.middleware.cors import CORSMiddleware  # Import CORSMiddleware
 class DifficultyLevel(str, Enum):
     EASY = "easy"
     MEDIUM = "medium"
@@ -40,7 +40,13 @@ model = genai.GenerativeModel(
 )
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins, change to specific origins as needed
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 # Add CORS middleware to the app
 app.add_middleware(
     CORSMiddleware,
